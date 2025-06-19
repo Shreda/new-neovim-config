@@ -26,6 +26,7 @@ vim.opt.history = 200
 vim.opt.relativenumber = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
+vim.opt.hlsearch = false
 
 vim.g.maplocalleader = "\\"
 vim.g.mapleader = " "
@@ -176,3 +177,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		end
 	end,
 })
+
+vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = '#51B3EC', bold = true })
+vim.api.nvim_set_hl(0, 'LineNr', { fg = 'white', bold = true })
+vim.api.nvim_set_hl(0, 'LineNrBelow', { fg = '#FB508F', bold = true })
