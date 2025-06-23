@@ -40,6 +40,7 @@ vim.keymap.set("n", "<C-j>", "<C-w>j")
 vim.keymap.set("n", "<C-k>", "<C-w>k")
 vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<F3>", "<cmd>lua vim.lsp.buf.format()<CR>", { noremap = true, silent = true })
 
 -- Setup lazy.nvim
 require("lazy").setup({
@@ -129,6 +130,9 @@ cmp.setup.cmdline(':', {
 -- Set up lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+require('lspconfig')['templ'].setup {
+	capabilities = capabilities
+}
 require('lspconfig')['gopls'].setup {
 	capabilities = capabilities
 }
@@ -144,13 +148,16 @@ require('lspconfig')['lua_ls'].setup {
 	}
 }
 
+require('lspconfig')['ts_ls'].setup {
+	capabilities = capabilities
+}
+
 -- Setup tree-sitter
 require 'nvim-treesitter.configs'.setup {
 	-- A list of parser names, or "all" (the listed parsers MUST always be installed)
-	ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "go" },
+	ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "go", "templ" },
 	sync_install = false,
 	auto_install = true,
-	ignore_install = { "javascript" },
 	highlight = {
 		enable = true,
 		additional_vim_regex_highlighting = false,
